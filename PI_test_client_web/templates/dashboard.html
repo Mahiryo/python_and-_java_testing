@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>System Monitor</title>
+    <style>
+      body { font-family: sans-serif; max-width: 700px; margin: 30px auto; }
+      .card { border: 1px solid #ddd; border-radius: 10px; padding: 16px; }
+      .row { display:flex; gap: 16px; margin-top: 12px; }
+      .box { flex: 1; border: 1px solid #eee; border-radius: 10px; padding: 12px; }
+      .big { font-size: 28px; }
+      .muted { color: #666; }
+    </style>
+  </head>
+  <body>
+    <h1>System Monitor</h1>
+    <p class="muted">Samples stored: {{ count }}</p>
+
+    <div class="card" id="card">
+      {% if latest %}
+        <div><b>{{ latest.hostname }}</b></div>
+        <div class="muted">{{ latest.timestamp }}</div>
+        <div class="row">
+          <div class="box"><div>CPU</div><div class="big">{{ latest.cpu_percent }}%</div></div>
+          <div class="box"><div>Memory</div><div class="big">{{ latest.mem_percent }}%</div></div>
+          <div class="box"><div>Disk</div><div class="big">{{ latest.disk_percent }}%</div></div>
+
+          <div class="box"><div>GPU_Total</div><div class="big">{{ latest.disk_percent }}%</div></div>
+          <div class="box"><div>GPU_Used</div><div class="big">{{ latest.disk_percent }}%</div></div>
+          <div class="box"><div>GPU_Load</div><div class="big">{{ latest.disk_percent }}%</div></div>
+        </div>
+      {% else %}
+        <div>No data yet. Start the agent.</div>
+      {% endif %}
+    </div>
+
+    <script>
+      async function refresh() {
+        const r = await fetch("/api/latest");
+        const d = await r.json();
+        if (!d || !d.hostname) return;
+
+        document.getElementById("card").innerHTML = `
+          <div><b>${d.hostname}</b></div>
+          <div class="muted">${d.timestamp}</div>
+          <div class="row">
+            <div class="box"><div>CPU</div><div class="big">${d.cpu_percent}%</div></div>
+            <div class="box"><div>Memory</div><div class="big">${d.mem_percent}%</div></div>
+            <div class="box"><div>Disk</div><div class="big">${d.disk_percent}%</div></div>
+
+            <div class="box"><div>GPU_Total</div><div class="big">${gpu_total_memory}MB</div></div>
+            <div class="box"><div>GPU_Used</div><div class="big">${gpu_used_memory}MB</div></div>
+            <div class="box"><div>GPU_Load</div><div class="big">${gpu_load}%</div></div>
+      
+          </div>
+        `;
+      }
+      setInterval(refresh, 2000);
+    </script>
+  </body>
+</html>
