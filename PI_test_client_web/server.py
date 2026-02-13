@@ -11,14 +11,10 @@ templates = Jinja2Templates(directory="templates")
 SAMPLES = deque(maxlen=500)
 
 class MetricPayload(BaseModel):
-    hostname: str
     cpu_percent: float
     mem_percent: float
     disk_percent: float
-    timestamp: str  
-    gpu_total_memory: str
-    gpu_used_memory: str
-    gpu_load: str
+
 
 @app.post("/api/metrics")
 def ingest_metrics(payload: MetricPayload):
