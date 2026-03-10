@@ -12,8 +12,8 @@ public class Element {
     Movement movement;
     Resolve resolve;
 
-    ArrayList<GameObject> objectList;
-    ArrayList<GameOverlay> overlayList;
+    public ArrayList<GameObject> objectList;
+    public ArrayList<GameOverlay> overlayList;
 
     public Element(Movement mov, Resolve solve, ArrayList<GameObject> triggerList, ArrayList<GameOverlay> spriteList){
         this.movement = mov;

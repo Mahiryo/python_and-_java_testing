@@ -7,9 +7,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class GameObject extends JPanel {
-    int x, y, w, h;
+    public int x, y, w, h;
     ViewPort viewPort;
-    String name;
+    public String name;
     Color color;
     boolean fill;
     public Rectangle rect;
@@ -37,23 +37,26 @@ public class GameObject extends JPanel {
 
     public void render(Graphics g){
         g.setColor(color);
+        this.rect = new Rectangle(
+        ((x - w/2) + (viewPort.viewport_width/2) + viewPort.position_x),
+        (((y - h/2) + (viewPort.viewport_height/2) + viewPort.position_y)) ,
+        w,
+        h);
+
         if(fill){
         g.fillRect(
-                ((x - w/2) + (viewPort.viewport_width/2) + viewPort.position_x),
-                (((y - h/2) + (viewPort.viewport_height/2) + viewPort.position_y)) ,
-                w,
-                h);
+        ((x - w/2) + (viewPort.viewport_width/2) + viewPort.position_x),
+        (((y - h/2) + (viewPort.viewport_height/2) + viewPort.position_y)) ,
+        w,
+        h);
         }
         else{
-        g.drawRect(((x - w/2) + (viewPort.viewport_width/2) + viewPort.position_x),
-                (((y - h/2) + (viewPort.viewport_height/2) + viewPort.position_y)) ,
-                w,
-                h);
+        g.drawRect(
+        ((x - w/2) + (viewPort.viewport_width/2) + viewPort.position_x),
+        (((y - h/2) + (viewPort.viewport_height/2) + viewPort.position_y)) ,
+        w,
+        h);
         }
-        this.rect = new Rectangle(
-                ((x - w/2) + (viewPort.viewport_width/2) + viewPort.position_x),
-                (((y - h/2) + (viewPort.viewport_height/2) + viewPort.position_y)) ,
-                w,
-                h);
+
     }
 }

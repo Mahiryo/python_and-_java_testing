@@ -9,30 +9,37 @@ import java.util.ArrayList;
 
 public class Resolve {
     GamePanel gamePanel;
-    ViewPort viewPort;
-    Rectangle local_rect;
-    public Resolve(GamePanel panel) {
+
+    ArrayList<GameObject> triggerList;
+    public Resolve(GamePanel panel, ArrayList<GameObject> colliderList) {
         this.gamePanel = panel;
-        this.viewPort = this.gamePanel.viewPort;
-        this.local_rect = this.gamePanel.viewPort.rect;
+        this.triggerList = colliderList;
+
     }
 
     public boolean solveX(int dx) {
-        Rectangle local_test_rectangle_x = new Rectangle(this.local_rect);
-        local_test_rectangle_x.x -= (dx);
+        for(GameObject trigger : this.triggerList){
 
-        for (GameObject obj : gamePanel.components){
-            if(local_test_rectangle_x.intersects(obj.rect)) return false;
+            Rectangle local_test_rectangle_x = new Rectangle(trigger.rect);
+            local_test_rectangle_x.x -= (dx);
+
+            for (GameObject obj : gamePanel.components){
+                if(local_test_rectangle_x.intersects(obj.rect)) return false;
+            }
+
         }
-
         return true;
     }
 
     public boolean solveY(int dy) {
-        Rectangle local_test_rectangle_y = new Rectangle(this.local_rect);
-        local_test_rectangle_y.y -= dy;
-        for (GameObject obj : gamePanel.components){
-            if(local_test_rectangle_y.intersects(obj.rect)) return false;
+
+        for (GameObject trigger : this.triggerList){
+
+            Rectangle local_test_rectangle_y = new Rectangle(trigger.rect);
+            local_test_rectangle_y.y -= dy;
+            for (GameObject obj : gamePanel.components){
+                if(local_test_rectangle_y.intersects(obj.rect)) return false;
+            }
         }
         return true;
     }

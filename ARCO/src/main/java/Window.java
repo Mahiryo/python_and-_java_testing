@@ -1,3 +1,4 @@
+import Player.Player;
 import world.GameLoop;
 import world.GameObject;
 import world.GamePanel;
@@ -6,9 +7,9 @@ import javax.swing.*;
 import java.awt.Dimension;
 
 public class Window {
-    private final JFrame frame;
-    private final GamePanel panel;
-    private final GameLoop loop;
+    JFrame frame;
+    GamePanel panel;
+    GameLoop loop;
 
     public Window(){
         frame = new JFrame("Arc");

@@ -27,24 +27,25 @@ public class GameOverlay extends JPanel {
     public void render(Graphics g){
         if(isImage){
             g.drawImage(this.image,
-                    (x - w/2 + viewPort.viewport_width/2 + viewPort.position_x),
-                    (y - h/2 + viewPort.viewport_height/2 + viewPort.position_y),
-                    (x - w/2 + viewPort.viewport_width/2 + w),
-                    (y - h/2 + viewPort.viewport_height/2 + h),
+                    (x - w/2 + this.viewPort.viewport_width/2 +  this.viewPort.position_x),
+                    (y - h/2 + this.viewPort.viewport_height/2 + this.viewPort.position_y),
+                    (x - w/2 + this.viewPort.viewport_width/2 + w),
+                    (y - h/2 + this.viewPort.viewport_height/2 + h),
                     null);
 
         } else {
             g.setColor(new Color(0, 0, 0, 120));
             g.drawRect(
-                    ((x - w/2) + (viewPort.viewport_width/2) + viewPort.position_x),
-                    ((y - h/2) + (viewPort.viewport_height/2) + viewPort.position_y),
+                    ((x - w/2) + (this.viewPort.viewport_width/2) + this.viewPort.position_x),
+                    ((y - h/2) + (this.viewPort.viewport_height/2) + this.viewPort.position_y),
                     w,
                     h);
 
         }
-        this.rect = new Rectangle((x - w/2 + viewPort.viewport_width/2 + viewPort.position_x),
-                (y - h/2 + viewPort.viewport_height/2 + viewPort.position_y),
-                (x - w/2 + viewPort.viewport_width/2 + w),
-                (y - h/2 + viewPort.viewport_height/2 + h));
+        this.rect = new Rectangle(
+                (x - w/2 + this.viewPort.viewport_width/2 +     this.viewPort.position_x),
+                (y - h/2 + this.viewPort.viewport_height/2 +    this.viewPort.position_y),
+                (x - w/2 + this.viewPort.viewport_width/2 + w),
+                (y - h/2 + this.viewPort.viewport_height/2 + h));
     }
 }
